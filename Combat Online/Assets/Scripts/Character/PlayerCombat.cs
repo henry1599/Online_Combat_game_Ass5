@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] KeyCode attackKey = KeyCode.C;
+    [SerializeField] KeyCode specialAttackKey = KeyCode.V;
     [SerializeField] Animator animator;
     [SerializeField] float resetValue;
     public bool IsAttacking {get; set;}
@@ -14,6 +15,7 @@ public class PlayerCombat : MonoBehaviour
         Animator.StringToHash("Attack02"),
         Animator.StringToHash("Attack03")
     };
+    private static readonly int SpecialAttackkeyAnimation = Animator.StringToHash("Push");
     private int currentAttackIdx
     {
         get => attackIdx;
@@ -37,6 +39,11 @@ public class PlayerCombat : MonoBehaviour
         {
             Attack();
         }
+        if (Input.GetKeyDown(this.specialAttackKey))
+        {
+            SpecialAttack();
+        }
+
     }
     void Attack()
     {
@@ -46,6 +53,14 @@ public class PlayerCombat : MonoBehaviour
         this.currentAttackIdx++;
         CancelInvoke(nameof(ResetAttackCombo));
         Invoke(nameof(ResetAttackCombo), this.resetValue);
+    }
+    void SpecialAttack()
+    {
+        if (IsAttacking)
+            return;
+        IsAttacking = true;
+        ResetAttackCombo();
+        this.animator.CrossFade(SpecialAttackkeyAnimation, 0, 0);
     }
     void ResetAttackCombo()
     {
