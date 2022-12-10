@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        this.rb.velocity = new Vector3(movement.normalized.x * this.moveSpeed * Time.fixedDeltaTime, rb.velocity.y, movement.normalized.y * this.moveSpeed * Time.fixedDeltaTime);
+        this.rb.velocity = new Vector3(-movement.normalized.x * this.moveSpeed * Time.fixedDeltaTime, rb.velocity.y, -movement.normalized.y * this.moveSpeed * Time.fixedDeltaTime);
     }
     public void RotateTowardsVelocity()
     {

@@ -59,8 +59,12 @@ public class PlayerCombat : MonoBehaviour
         if (IsAttacking)
             return;
         IsAttacking = true;
-        ResetAttackCombo();
+        ResetSpecialAttack();
         this.animator.CrossFade(SpecialAttackkeyAnimation, 0, 0);
+    }
+    void ResetSpecialAttack()
+    {
+        this.attackIdx = -1;
     }
     void ResetAttackCombo()
     {
