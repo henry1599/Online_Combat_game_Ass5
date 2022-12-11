@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : MonoBehaviour, IAttack, ISkill
 {
+    [SerializeField] Player player;
     [SerializeField] KeyCode attackKey = KeyCode.C;
     [SerializeField] KeyCode specialAttackKey = KeyCode.V;
     [SerializeField] Animator animator;
     [SerializeField] float resetValue;
     public bool IsAttacking {get; set;}
+
     private static readonly int[] AttackKeysAnimation = new int[3]
     {
         Animator.StringToHash("Attack01"),
@@ -16,6 +18,7 @@ public class PlayerCombat : MonoBehaviour
         Animator.StringToHash("Attack03")
     };
     private static readonly int SpecialAttackkeyAnimation = Animator.StringToHash("Push");
+
     private int currentAttackIdx
     {
         get => attackIdx;
@@ -27,48 +30,68 @@ public class PlayerCombat : MonoBehaviour
             animator.CrossFade(AttackKeysAnimation[attackIdx], 0, 0);
             IsAttacking = true;
         }
-    } int attackIdx = -1;
-    // Update is called once per frame
-    void Update()
+    }
+    private int attackIdx = -1;
+
+    private void Update()
     {
+        if (player.IsStun || player.IsDead) return;
+
         GetInput();
     }
-    void GetInput()
+
+    protected virtual void GetInput()
     {
-        if (Input.GetKeyDown(this.attackKey))
+        if (Input.GetKeyDown(attackKey))
         {
             Attack();
         }
-        if (Input.GetKeyDown(this.specialAttackKey))
+        if (Input.GetKeyDown(specialAttackKey))
         {
             SpecialAttack();
         }
 
     }
-    void Attack()
+
+    public void Attack()
     {
         if (IsAttacking)
             return;
 
-        this.currentAttackIdx++;
+        currentAttackIdx++;
         CancelInvoke(nameof(ResetAttackCombo));
-        Invoke(nameof(ResetAttackCombo), this.resetValue);
+        Invoke(nameof(ResetAttackCombo), resetValue);
+        DoAttack();
     }
-    void SpecialAttack()
+
+    public void SpecialAttack()
     {
         if (IsAttacking)
             return;
         IsAttacking = true;
         ResetSpecialAttack();
-        this.animator.CrossFade(SpecialAttackkeyAnimation, 0, 0);
+        animator.CrossFade(SpecialAttackkeyAnimation, 0, 0);
+        DoSkill();
     }
-    void ResetSpecialAttack()
+
+    private void ResetSpecialAttack()
     {
-        this.attackIdx = -1;
+        attackIdx = -1;
     }
-    void ResetAttackCombo()
+
+    private void ResetAttackCombo()
     {
-        this.attackIdx = -1;
+        attackIdx = -1;
         IsAttacking = false;
+    }
+
+    public void DoAttack()
+    {
+        AttackManager.Instance.DoAttack(player);
+    }
+
+    public void DoSkill()
+    {
+        SkillManager.Instance.DoSkill(player);
     }
 }

@@ -5,52 +5,62 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private static readonly int SpeedKeyAnimation = Animator.StringToHash("speed");
-    public Animator animator;
-    public float moveSpeed;
-    public float dampingRotation;
-    Rigidbody rb;
-    Vector2 movement;
-    PlayerCombat combat;
-    float angle;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Player player;
+    [SerializeField] private Animator animator;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float dampingRotation;
+    protected Vector2 movement;
+    private Rigidbody rb;
+    private PlayerCombat combat;
+    private float angle;
+
+    protected virtual void Start()
     {
-        this.rb = GetComponent<Rigidbody>();
-        this.combat = GetComponent<PlayerCombat>();
+        rb = GetComponent<Rigidbody>();
+        combat = GetComponent<PlayerCombat>();
+        player.OnBeHit += () => animator.SetTrigger("behit");
+        player.OnDead += () => animator.SetTrigger("dead");
     }
-    // Update is called once per frame
-    void Update()
+
+    protected virtual void Update()
     {
-        if (this.combat.IsAttacking)
+        if (combat.IsAttacking || player.IsStun || player.IsDead)
         {
-            return;
+            movement = Vector2.zero;
         }
-        GatherInput();
-        this.animator.SetFloat(SpeedKeyAnimation, this.rb.velocity.sqrMagnitude);
+        else
+        {
+            GatherInput();
+        }
+        animator.SetFloat(SpeedKeyAnimation, rb.velocity.sqrMagnitude);
         RotateTowardsVelocity();
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
-        if (this.combat.IsAttacking)
+        if (combat.IsAttacking || player.IsStun || player.IsDead)
         {
+            rb.velocity = Vector3.zero;
             return;
         }
-        this.rb.velocity = new Vector3(-movement.normalized.x * this.moveSpeed * Time.fixedDeltaTime, rb.velocity.y, -movement.normalized.y * this.moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = new Vector3(-movement.normalized.x * moveSpeed * Time.fixedDeltaTime, rb.velocity.y, -movement.normalized.y * moveSpeed * Time.fixedDeltaTime);
     }
+
     public void RotateTowardsVelocity()
     {
-        if (this.movement.Equals(Vector2.zero))
+        if (movement.Equals(Vector2.zero))
             return;
-        if (this.rb.velocity.Equals(Vector3.zero))
+        if (rb.velocity.Equals(Vector3.zero))
             return;
-        Vector3 v = this.rb.velocity;
-        this.angle = Mathf.Atan2(v.x, v.z) * Mathf.Rad2Deg;
-        // transform.rotation = Quaternion.AngleAxis(this.angle, Vector3.forward);
-        var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, this.angle, transform.eulerAngles.z);
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * this.dampingRotation);
+        Vector3 v = rb.velocity;
+        angle = Mathf.Atan2(v.x, v.z) * Mathf.Rad2Deg;
+        // transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        var desiredRotQ = Quaternion.Euler(transform.eulerAngles.x, angle, transform.eulerAngles.z);
+        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotQ, Time.deltaTime * dampingRotation);
     }
-    void GatherInput()
+
+    protected virtual void GatherInput()
     {
-        this.movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 }
