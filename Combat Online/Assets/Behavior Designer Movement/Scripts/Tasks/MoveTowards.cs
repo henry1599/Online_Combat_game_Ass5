@@ -36,7 +36,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             // Return a task status of success once we've reached the target
             if (Vector3.Magnitude(transform.position - position) < arriveDistance.Value)
             {
-                controller.IsMoveToward = false;
+
                 return TaskStatus.Success;
             }
             // We haven't reached the target yet so keep moving towards it
@@ -45,7 +45,6 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             // {
             //     transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(position - transform.position), maxLookAtRotationDelta.Value);
             // }
-            controller.IsMoveToward = true;
             controller.SetMoveToward(position);
 
             return TaskStatus.Running;

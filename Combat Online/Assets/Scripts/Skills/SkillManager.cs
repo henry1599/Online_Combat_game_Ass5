@@ -23,13 +23,14 @@ public class SkillManager : MonoBehaviour
         position += offset;
         position.y = 1;
         int damage = player.Damage;
-        CreateProjectile(position, rotation, damage);
+        CreateProjectile(position, rotation, damage, player);
     }
 
-    public void CreateProjectile(Vector3 position, Quaternion rotation, int damage)
+    public void CreateProjectile(Vector3 position, Quaternion rotation, int damage, Player source)
     {
         var projectile = Instantiate(projectilePrefab, position, rotation);
         projectile.Damage = damage;
+        projectile.Source = source;
     }
 
 }

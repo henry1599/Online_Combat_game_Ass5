@@ -8,6 +8,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private Enemy enemy;
     [SerializeField] private BehaviorTree behaviorTree;
     [SerializeField] private EnemyCombat combat;
+    [SerializeField] private ExternalBehavior behavior;
 
     private SharedBool isDead;
     private SharedGameObjectList playerList;
@@ -18,6 +19,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void Start()
     {
+        behaviorTree.ExternalBehavior = behavior;
         isDead = behaviorTree.GetVariable("IsDead") as SharedBool;
         playerList = behaviorTree.GetVariable("PlayerList") as SharedGameObjectList;
         canUseSkill = behaviorTree.GetVariable("CanUseSkill") as SharedBool;
@@ -44,7 +46,7 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator DelayAttack()
     {
         canAttack.Value = false;
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(1f);
         canAttack.Value = true;
     }
 

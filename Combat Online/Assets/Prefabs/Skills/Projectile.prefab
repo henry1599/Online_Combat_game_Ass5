@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8942905380980536047}
   - component: {fileID: 8942905380980536040}
   - component: {fileID: 8942905380980536041}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +52,7 @@ MonoBehaviour:
     type: 3}
   rb: {fileID: 8942905380980536040}
   Damage: 0
+  Source: {fileID: 0}
 --- !u!54 &8942905380980536040
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,7 +80,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: -0.5}
 --- !u!1001 &8942905380419918520
 PrefabInstance:
@@ -92,6 +93,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bullet Skill
+      objectReference: {fileID: 0}
+    - target: {fileID: 810022694861531985, guid: 08a88c23dbad2334d946a222b98fd3af,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102286876864851818, guid: 08a88c23dbad2334d946a222b98fd3af,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102396858714551278, guid: 08a88c23dbad2334d946a222b98fd3af,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1102488235982236482, guid: 08a88c23dbad2334d946a222b98fd3af,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2535069265514637289, guid: 08a88c23dbad2334d946a222b98fd3af,
         type: 3}

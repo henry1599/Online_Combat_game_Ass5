@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IBeHit
     private Coroutine increaseDamageCoroutine;
     private Coroutine stunCoroutine;
 
-    protected virtual bool IsPlayer => true;
+    public virtual bool IsPlayer => true;
 
     protected virtual IEnumerator Start()
     {

@@ -4,31 +4,23 @@ using UnityEngine;
 using UnityEngine.AI;
 using BehaviorDesigner.Runtime;
 
-public class EnemyController : PlayerController
+public class EnemyController : MonoBehaviour
 {
-    public bool IsMoveToward = false;
+    private static readonly int SpeedKeyAnimation = Animator.StringToHash("speed");
+    [SerializeField] private Player player;
+    [SerializeField] private Animator animator;
+    private PlayerCombat combat;
     [SerializeField] private NavMeshAgent agent;
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
-        agent.updatePosition = false;
-
+        combat = GetComponent<PlayerCombat>();
+        player.OnBeHit += () => animator.SetTrigger("behit");
+        player.OnDead += () => animator.SetTrigger("dead");
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
-        if (agent.remainingDistance <= agent.stoppingDistance && !agent.hasPath)
-            movement = Vector2.zero;
-    }
-
-    protected override void GatherInput()
-    {
-        if (IsMoveToward) return;
-
-        SetDestination(agent.nextPosition);
+        animator.SetFloat(SpeedKeyAnimation, agent.velocity.sqrMagnitude);
     }
 
     public void SetMoveToward(Vector3 destination)
@@ -38,10 +30,6 @@ public class EnemyController : PlayerController
 
     private void SetDestination(Vector3 destination)
     {
-        Vector3 delta = destination - transform.position;
-        delta.y = 0;
-        delta.Normalize();
-        Debug.Log(delta);
-        movement = new Vector2(Mathf.Abs(delta.x) > 0.001f ? -delta.x : 0, Mathf.Abs(delta.z) > 0.001f ? -delta.z : 0);
+        agent.SetDestination(destination);
     }
 }

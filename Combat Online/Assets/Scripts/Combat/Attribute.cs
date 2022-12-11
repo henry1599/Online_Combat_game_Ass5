@@ -5,6 +5,7 @@ using UnityEngine;
 public class Attribute : MonoBehaviour
 {
     [SerializeField] private AttributeConfig config;
+    [SerializeField] private GameObject aura;
 
     private int health;
     private int damage;
@@ -16,6 +17,7 @@ public class Attribute : MonoBehaviour
 
     public void Init()
     {
+        aura.SetActive(false);
         health = config.BaseHealth;
         damage = config.BaseDamage;
         increaseDamage = 0;
@@ -34,10 +36,12 @@ public class Attribute : MonoBehaviour
     public void IncreaseDamage(int amount)
     {
         increaseDamage = amount;
+        aura.SetActive(true);
     }
 
     public void DecreaseDamage()
     {
         increaseDamage = 0;
+        aura.SetActive(false);
     }
 }

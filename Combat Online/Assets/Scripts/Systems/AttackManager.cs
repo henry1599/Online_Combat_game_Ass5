@@ -28,6 +28,9 @@ public class AttackManager : MonoBehaviour
             if (ReferenceEquals(player, playerSource))
                 continue;
 
+            if (player.IsPlayer == playerSource.IsPlayer)
+                continue;
+
             if (IsInAttackRange(playerSource, player))
             {
                 player.BeHit(playerSource.Damage);

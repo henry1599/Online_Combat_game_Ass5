@@ -5,5 +5,5 @@ using BehaviorDesigner.Runtime;
 
 public class Enemy : Player
 {
-    protected override bool IsPlayer => false;
+    public override bool IsPlayer => false;
 }
