@@ -5996,7 +5996,7 @@ PrefabInstance:
     - target: {fileID: 8373932789918030522, guid: faedc8d12e43eb04e951a30a46b76179,
         type: 3}
       propertyPath: m_Name
-      value: Enemy Skill Variant
+      value: Enemy Skill
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faedc8d12e43eb04e951a30a46b76179, type: 3}

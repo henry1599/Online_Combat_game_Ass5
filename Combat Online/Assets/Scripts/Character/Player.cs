@@ -28,7 +28,10 @@ public class Player : MonoBehaviour, IBeHit
         OnHealth += attribute.IncreaseHealth;
         AttackManager.Instance.AddPlayer(this);
         if (IsPlayer)
+        {
             GameManager.Instance.AddPlayer(gameObject);
+            OnDead += () => GameManager.Instance.RemovePlayer(gameObject);
+        }
     }
 
     public void IncreaseHealth(int amount)
