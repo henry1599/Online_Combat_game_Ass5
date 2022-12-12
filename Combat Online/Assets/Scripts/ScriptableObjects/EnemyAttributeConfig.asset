@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597ef92c46531e64a8f331c56ccdaaba, type: 3}
-  m_Name: ProjectileConfig
+  m_Script: {fileID: 11500000, guid: d4216de2519b3ce4da63bcfe8b8bbe7a, type: 3}
+  m_Name: EnemyAttributeConfig
   m_EditorClassIdentifier: 
-  Speed: 10
-  DamageFactor: 2
-  LifeTime: 5
+  BaseHealth: 200
+  MaxHealth: 200
+  BaseDamage: 10

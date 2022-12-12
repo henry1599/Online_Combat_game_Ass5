@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4216de2519b3ce4da63bcfe8b8bbe7a, type: 3}
-  m_Name: AttributeConfig
+  m_Name: PlayerAttributeConfig
   m_EditorClassIdentifier: 
-  BaseHealth: 100
-  MaxHealth: 200
-  BaseDamage: 10
+  BaseHealth: 400
+  MaxHealth: 400
+  BaseDamage: 50

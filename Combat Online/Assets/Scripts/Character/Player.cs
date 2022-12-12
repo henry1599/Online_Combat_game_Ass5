@@ -55,6 +55,7 @@ public class Player : MonoBehaviour, IBeHit
 
     public void BeHit(int damage)
     {
+        LogBeHit(damage);
         attribute.DecreaseHealth(damage);
         if (attribute.Health <= 0)
         {
@@ -81,5 +82,10 @@ public class Player : MonoBehaviour, IBeHit
     public void DoSkill()
     {
         throw new NotImplementedException();
+    }
+
+    public virtual void LogBeHit(int damge)
+    {
+        Debug.Log("Plaeyr take damage: " + damge);
     }
 }
