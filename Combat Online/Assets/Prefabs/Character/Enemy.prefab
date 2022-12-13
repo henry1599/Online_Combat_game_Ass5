@@ -493,7 +493,7 @@ MonoBehaviour:
   attackKey: 99
   specialAttackKey: 118
   animator: {fileID: 6603505930682381086}
-  resetValue: 0
+  resetValue: 3
 --- !u!136 &8373932789918030519
 CapsuleCollider:
   m_ObjectHideFlags: 0

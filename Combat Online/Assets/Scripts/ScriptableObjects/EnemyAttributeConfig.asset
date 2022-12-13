@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseHealth: 200
   MaxHealth: 200
-  BaseDamage: 10
+  BaseDamage: 20

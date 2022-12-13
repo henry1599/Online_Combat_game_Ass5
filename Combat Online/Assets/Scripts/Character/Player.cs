@@ -34,6 +34,16 @@ public class Player : MonoBehaviour, IBeHit
         }
     }
 
+    public void Respawn()
+    {
+        IsDead = false;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        AttackManager.Instance.AddPlayer(this);
+        attribute.Init();
+        GetComponentInChildren<Animator>().SetTrigger("respawn");
+    }
+
     public void IncreaseHealth(int amount)
     {
         OnHealth?.Invoke(amount);
@@ -53,14 +63,13 @@ public class Player : MonoBehaviour, IBeHit
         attribute.DecreaseDamage();
     }
 
-    public void BeHit(int damage)
+    public void BeHit(int damageTaken)
     {
-        LogBeHit(damage);
-        attribute.DecreaseHealth(damage);
+        LogBeHit(damageTaken);
+        attribute.DecreaseHealth(damageTaken);
         if (attribute.Health <= 0)
         {
             IsDead = true;
-            GetComponent<Collider>().enabled = false;
             OnDead?.Invoke();
         }
         else

@@ -13,6 +13,17 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach (GameObject player in Players)
+            {
+                player.GetComponent<Player>().IncreaseHealth(20);
+            }
+        }
+    }
+
     public void AddPlayer(GameObject player)
     {
         Players.Add(player);
@@ -21,5 +32,13 @@ public class GameManager : MonoBehaviour
     public void RemovePlayer(GameObject player)
     {
         Players.Remove(player);
+        StartCoroutine(RespawnPlayer(player));
+    }
+
+    public IEnumerator RespawnPlayer(GameObject player)
+    {
+        yield return new WaitForSeconds(2f);
+        player.GetComponent<Player>().Respawn();
+        Players.Add(player);
     }
 }

@@ -23,6 +23,8 @@ public class Projectile : MonoBehaviour
         {
             if (target.IsPlayer == Source.IsPlayer)
                 return;
+            if (target.IsDead)
+                return;
 
             Instantiate(hitEffect, transform.position, Quaternion.identity);
             target.BeHit(Mathf.RoundToInt(config.DamageFactor * Damage));

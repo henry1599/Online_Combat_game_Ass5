@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2b353d39d5205478bb76f84b4d9f3c, type: 3}
   m_Name: IncreaseDamageItemData
   m_EditorClassIdentifier: 
-  Amount: 10
+  Amount: 20
   Time: 5

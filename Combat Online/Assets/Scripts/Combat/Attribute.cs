@@ -34,7 +34,7 @@ public class Attribute : MonoBehaviour
 
     public void DecreaseHealth(int amount)
     {
-        health = Mathf.Clamp(health - damage, 0, config.MaxHealth);
+        health = Mathf.Clamp(health - amount, 0, config.MaxHealth);
         healthBar.SetHealth(health);
     }
 
